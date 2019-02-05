@@ -110,6 +110,7 @@ public class Issue {
     
     @Override
     public String toString() {        
-        return "User: " + user.toString() + " Assignee: " + assignee.toString();
+        return "Issue: " + title +" / User: " + user.toString() + " / Assignee: " + assignee.toString() + "\n";
     }
+    
 }
