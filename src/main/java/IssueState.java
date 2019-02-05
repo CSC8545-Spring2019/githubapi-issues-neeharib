@@ -1,4 +1,4 @@
 
 public enum IssueState {
-open,closed
+    open,closed
 }

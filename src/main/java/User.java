@@ -3,8 +3,8 @@ import java.util.Objects;
 public class User {
     String login;
     int id;
-    
-    
+
+
     public String getLogin() {
         return login;
     }
@@ -26,21 +26,21 @@ public class User {
         if (obj == this) {
             return true;
         }
-        
+
         if (!(obj instanceof User)) {
             return false;
         }
-        
+
         User u = (User) obj;
-        
+
         return u.id == id;
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-    
+
     @Override
     public String toString() {        
         return login;

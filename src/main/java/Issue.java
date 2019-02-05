@@ -15,7 +15,7 @@ public class Issue {
     public Issue() {
 
     }
-
+    //Generated Getters and setters from Source
     public int getNumber() {
         return number;
     }
