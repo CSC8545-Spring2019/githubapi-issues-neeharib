@@ -1,8 +1,14 @@
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
 
 public class IssuesExporter {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         
         IssuesExporter iExporter = new IssuesExporter();
         Scanner s = new Scanner(System.in);
@@ -16,12 +22,12 @@ public class IssuesExporter {
         user1.setId(101);
         
         User user2 = new User();
-        user1.setLogin("Devi Priya");
-        user1.setId(102);
+        user2.setLogin("Devi Priya");
+        user2.setId(102);
         
         User user3 = new User();
-        user1.setLogin("Vamsi");
-        user1.setId(103);
+        user3.setLogin("Vamsi");
+        user3.setId(103);
         
         Issue issue1 = new Issue();
         issue1.setNumber(7474);
@@ -68,8 +74,28 @@ public class IssuesExporter {
         issueList.add(issue2);
         issueList.add(issue3);
 
-        System.out.println("Number of Issues :"+ issueList.size());
+        System.out.println("Number of Issues : "+ issueList.size());
         
+        Path currentPath = Paths.get(System.getProperty("user.dir"));
+        Path filePath = Paths.get(currentPath.toString(), "issues.txt");
+        File file = new File(filePath.toString());
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+        // Taking valid input from the Console
+        FileWriter fw = new FileWriter(file.getAbsoluteFile(), false);
+        BufferedWriter bw = new BufferedWriter(fw);
+        try {
+            for (Issue issue: issueList) {
+                fw.write(issue.toString());
+            }
+        }catch (IOException e) {
+            // TODO: handle exception
+            System.out.println(e);
+        }finally {
+            bw.close();
+            fw.close();
+        }
     }
 
 }
