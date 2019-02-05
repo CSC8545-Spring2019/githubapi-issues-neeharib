@@ -11,11 +11,11 @@ public class Issue {
     Date closedAt;
     User user;
     User assignee;
-    
+
     public Issue() {
-        
+
     }
-    
+
     public int getNumber() {
         return number;
     }
@@ -93,24 +93,24 @@ public class Issue {
         if (obj == this) {
             return true;
         }
-        
+
         if (!(obj instanceof Issue)) {
             return false;
         }
-        
+
         Issue i = (Issue) obj;
-        
+
         return i.id == id;
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(id);
     }
-    
+
     @Override
     public String toString() {        
         return "Issue: " + title +" / User: " + user.toString() + " / Assignee: " + assignee.toString() + "\n";
     }
-    
+
 }
