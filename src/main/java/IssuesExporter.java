@@ -7,8 +7,10 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class IssuesExporter {
+    static List<Issue> issueList;
 
     public static void main(String[] args) throws IOException{
+
         //Taking username and password from console
         IssuesExporter iExporter = new IssuesExporter();
         Scanner s = new Scanner(System.in);
@@ -17,19 +19,53 @@ public class IssuesExporter {
         System.out.println("Enter the GitHub Password: ");
         String gitPassword = s.nextLine();
 
-        //Creating three users
+        issueList = new ArrayList<Issue>();
+        //Invoking the method of issueExporter Class that returns the list of issues in array
+        issueList = iExporter.CreatingIssues();   
+        //Printing the issues to output 
+        System.out.println("Number of Issues : "+ issueList.size());
+
+        //Implementing issue export to file called issues.txt locally
+        Path currentPath = Paths.get(System.getProperty("user.dir"));
+        Path filePath = Paths.get(currentPath.toString(), "issues.txt");
+        File file = new File(filePath.toString());
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+
+        FileWriter fw = new FileWriter(file.getAbsoluteFile(), false);
+        BufferedWriter bw = new BufferedWriter(fw);
+        try {
+            for (Issue issue: issueList) {
+                fw.write(issue.toString());
+            }
+        }catch (IOException e) {
+            // TODO: handle exception
+            System.out.println(e);
+        }finally {
+            bw.close();
+            fw.close();
+        }
+    }
+
+    //this method creates user and Issue instances and add them to the arraylist of type Issue
+    //it returns the list
+    public List<Issue> CreatingIssues() {
+
+        //Creating three user instances
         User user1 = new User();
         user1.setLogin("Neeharika");
         user1.setId(101);
 
         User user2 = new User();
-        user2.setLogin("Devi Priya");
+        user2.setLogin("DeviPriya");
         user2.setId(102);
 
         User user3 = new User();
         user3.setLogin("Vamsi");
         user3.setId(103);
 
+        //Creating Instances for issues
         Issue issue1 = new Issue();
         issue1.setNumber(7474);
         issue1.setId(1);
@@ -69,36 +105,12 @@ public class IssuesExporter {
         issue3.setUser(user1);
         issue3.setAssignee(user3);
 
-        //Creating list and storing the issues
-        List<Issue> issueList = new ArrayList<Issue>();
+        //Adding the issues to the list
         issueList.add(issue1);
         issueList.add(issue2);
         issueList.add(issue3);
 
-        //Printing the issues to output 
-        System.out.println("Number of Issues : "+ issueList.size());
-
-        //Implementing issue export to file called issues.txt locally
-        Path currentPath = Paths.get(System.getProperty("user.dir"));
-        Path filePath = Paths.get(currentPath.toString(), "issues.txt");
-        File file = new File(filePath.toString());
-        if (!file.exists()) {
-            file.createNewFile();
-        }
-
-        FileWriter fw = new FileWriter(file.getAbsoluteFile(), false);
-        BufferedWriter bw = new BufferedWriter(fw);
-        try {
-            for (Issue issue: issueList) {
-                fw.write(issue.toString());
-            }
-        }catch (IOException e) {
-            // TODO: handle exception
-            System.out.println(e);
-        }finally {
-            bw.close();
-            fw.close();
-        }
+        return issueList;
     }
 
 }
