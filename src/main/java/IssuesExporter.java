@@ -20,7 +20,13 @@ public class IssuesExporter {
         String gitUserName = s.nextLine();
         System.out.println("Enter the GitHub Password: ");
         String gitPassword = s.nextLine();
-
+        
+        GitHubRestClient githubClient = new GitHubRestClient();
+        String issuesString = githubClient.requestIssues(gitUserName, gitPassword);
+        
+        IssueParser parser = new IssueParser();
+        parser.parseIssues(issuesString);
+        
         issueList = new ArrayList<Issue>();
         // Invoking the method of issueExporter Class that returns the list of issues in
         // array
@@ -46,6 +52,7 @@ public class IssuesExporter {
             // TODO: handle exception
             System.out.println(e);
         } finally {
+            s.close();
             bw.close();
             fw.close();
         }

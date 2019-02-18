@@ -24,11 +24,11 @@ import org.apache.http.util.EntityUtils;
 
 public class GitHubRestClient {
     
-    public static void main(String[] args) {
-        GitHubRestClient prototype = new GitHubRestClient();
-        String json = prototype.requestIssues("user", "pass");
-        System.out.println(json);
-    }
+//    public static void main(String[] args) {
+//        GitHubRestClient prototype = new GitHubRestClient();
+//        String json = prototype.requestIssues("user", "pass");
+//        System.out.println(json);
+//    }
     
     public String requestIssues(String username, String password) {
 
@@ -49,7 +49,7 @@ public class GitHubRestClient {
         HttpClientContext localContext = HttpClientContext.create();
         localContext.setAuthCache(authCache);
 
-        HttpGet httpget = new HttpGet("/repos/CSC8545-Spring2019/githubapi-issues-neeharib/issues");
+        HttpGet httpget = new HttpGet("/repos/CSC8545-Spring2019/githubapi-issues-neeharib/issues?state=all");
         try {
             CloseableHttpResponse response = httpclient.execute(target, httpget, localContext);
             System.out.println(response.getStatusLine()); 
