@@ -1,4 +1,5 @@
 package main.java;
+
 import java.util.Date;
 import java.util.Objects;
 
@@ -16,7 +17,8 @@ public class Issue {
     public Issue() {
 
     }
-    //Generated Getters and setters from Source
+
+    // Generated Getters and setters from Source
     public int getNumber() {
         return number;
     }
@@ -110,8 +112,8 @@ public class Issue {
     }
 
     @Override
-    public String toString() {        
-        return "Issue: " + title +" / User: " + user.toString() + " / Assignee: " + assignee.toString() + "\n";
+    public String toString() {
+        return "Issue: " + title + " / User: " + user.toString() + " / Assignee: " + assignee.toString() + "\n";
     }
 
 }

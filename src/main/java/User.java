@@ -1,10 +1,10 @@
 package main.java;
+
 import java.util.Objects;
 
 public class User {
     String login;
     int id;
-
 
     public String getLogin() {
         return login;
@@ -43,7 +43,7 @@ public class User {
     }
 
     @Override
-    public String toString() {        
+    public String toString() {
         return login;
     }
 }
