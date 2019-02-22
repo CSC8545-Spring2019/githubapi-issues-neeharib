@@ -1,12 +1,11 @@
-package test.java;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import main.java.Issue;
-import main.java.IssueParser;
+
 
 class IssueTest {
     private static String jsonString;

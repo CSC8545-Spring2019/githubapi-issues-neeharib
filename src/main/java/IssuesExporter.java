@@ -1,5 +1,3 @@
-package main.java;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -9,9 +7,9 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class IssuesExporter {
-    static List<Issue> issueList;
+    List<Issue> issues;
 
-    public static void main(String[] args) throws IOException {
+    public void main(String[] args) throws IOException {
 
         // Taking username and password from console
         IssuesExporter iExporter = new IssuesExporter();
@@ -20,19 +18,19 @@ public class IssuesExporter {
         String gitUserName = s.nextLine();
         System.out.println("Enter the GitHub Password: ");
         String gitPassword = s.nextLine();
-        
+
         GitHubRestClient githubClient = new GitHubRestClient();
         String issuesString = githubClient.requestIssues(gitUserName, gitPassword);
-        
+
         IssueParser parser = new IssueParser();
         parser.parseIssues(issuesString);
-        
-        issueList = new ArrayList<Issue>();
+
+        issues = new ArrayList<Issue>();
         // Invoking the method of issueExporter Class that returns the list of issues in
         // array
-        issueList = iExporter.CreatingIssues();
+        issues = iExporter.creatingIssues();
         // Printing the issues to output
-        System.out.println("Number of Issues : " + issueList.size());
+        System.out.println("Number of Issues : " + issues.size());
 
         // Implementing issue export to file called issues.txt locally
         Path currentPath = Paths.get(System.getProperty("user.dir"));
@@ -45,7 +43,7 @@ public class IssuesExporter {
         FileWriter fw = new FileWriter(file.getAbsoluteFile(), false);
         BufferedWriter bw = new BufferedWriter(fw);
         try {
-            for (Issue issue : issueList) {
+            for (Issue issue : issues) {
                 fw.write(issue.toString());
             }
         } catch (IOException e) {
@@ -61,7 +59,7 @@ public class IssuesExporter {
     // this method creates user and Issue instances and add them to the arraylist of
     // type Issue
     // it returns the list
-    public List<Issue> CreatingIssues() {
+    public List<Issue> creatingIssues() {
 
         // Creating three user instances
         User user1 = new User();
@@ -117,11 +115,11 @@ public class IssuesExporter {
         issue3.setAssignee(user3);
 
         // Adding the issues to the list
-        issueList.add(issue1);
-        issueList.add(issue2);
-        issueList.add(issue3);
+        issues.add(issue1);
+        issues.add(issue2);
+        issues.add(issue3);
 
-        return issueList;
+        return issues;
     }
 
 }

@@ -1,4 +1,4 @@
-package main.java;
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -23,13 +23,7 @@ import org.apache.http.util.EntityUtils;
 
 
 public class GitHubRestClient {
-    
-//    public static void main(String[] args) {
-//        GitHubRestClient prototype = new GitHubRestClient();
-//        String json = prototype.requestIssues("user", "pass");
-//        System.out.println(json);
-//    }
-    
+
     public String requestIssues(String username, String password) {
 
         String jsonContent = null;
@@ -62,7 +56,7 @@ public class GitHubRestClient {
             jsonContent = reader.readLine();
 
             EntityUtils.consume(entity);
-           
+
         }
         catch (ClientProtocolException e) {
             System.out.println("Unable to get data, or HTTP method not allowed");
@@ -79,6 +73,6 @@ public class GitHubRestClient {
         }
         return jsonContent;
     }
-    
+
 
 }
