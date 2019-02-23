@@ -7,11 +7,17 @@ import java.nio.file.Paths;
 import java.util.*;
 
 public class IssuesExporter {
-    List<Issue> issues;
 
-    public void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException {
 
         // Taking username and password from console
+        IssuesExporter iExporter = new IssuesExporter();
+        iExporter.startApplication();
+
+    }
+
+    public void startApplication() throws IOException {
+        List<Issue> issues = new ArrayList<Issue>();
         IssuesExporter iExporter = new IssuesExporter();
         Scanner s = new Scanner(System.in);
         System.out.println("Enter the GitHub Username: ");
@@ -20,16 +26,19 @@ public class IssuesExporter {
         String gitPassword = s.nextLine();
 
         GitHubRestClient githubClient = new GitHubRestClient();
-        String issuesString = githubClient.requestIssues(gitUserName, gitPassword);
+        String issuesString = githubClient.requestIssues(gitUserName,
+                gitPassword);
 
         IssueParser parser = new IssueParser();
         parser.parseIssues(issuesString);
 
-        issues = new ArrayList<Issue>();
-        // Invoking the method of issueExporter Class that returns the list of issues in
-        // array
         issues = iExporter.creatingIssues();
+
+        // Invoking the method of issueExporter Class that returns the list of
+        // issues in
+        // array
         // Printing the issues to output
+
         System.out.println("Number of Issues : " + issues.size());
 
         // Implementing issue export to file called issues.txt locally
@@ -46,21 +55,25 @@ public class IssuesExporter {
             for (Issue issue : issues) {
                 fw.write(issue.toString());
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             // TODO: handle exception
             System.out.println(e);
-        } finally {
+        }
+        finally {
             s.close();
             bw.close();
             fw.close();
         }
+
     }
 
-    // this method creates user and Issue instances and add them to the arraylist of
+    // this method creates user and Issue instances and add them to the
+    // arraylist of
     // type Issue
     // it returns the list
     public List<Issue> creatingIssues() {
-
+        List<Issue> issues = new ArrayList<Issue>();
         // Creating three user instances
         User user1 = new User();
         user1.setLogin("Neeharika");
@@ -81,7 +94,8 @@ public class IssuesExporter {
         issue1.setState(IssueState.open);
         issue1.setTitle("Authentication Failure");
         issue1.setBody("There has been failure to login");
-        Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
+        Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11)
+                .getTime();
         issue1.setCreatedAt(date);
         Date date1 = new GregorianCalendar(2014, Calendar.MARCH, 21).getTime();
         issue1.setClosedAt(date1);
@@ -109,7 +123,8 @@ public class IssuesExporter {
         issue3.setBody("There is some error while loading the page");
         Date date5 = new GregorianCalendar(2010, Calendar.JANUARY, 1).getTime();
         issue3.setCreatedAt(date5);
-        Date date6 = new GregorianCalendar(2010, Calendar.JANUARY, 21).getTime();
+        Date date6 = new GregorianCalendar(2010, Calendar.JANUARY, 21)
+                .getTime();
         issue3.setClosedAt(date6);
         issue3.setUser(user1);
         issue3.setAssignee(user3);

@@ -47,7 +47,6 @@ public class GitHubRestClient {
         try {
             CloseableHttpResponse response = httpclient.execute(target, httpget, localContext);
             System.out.println(response.getStatusLine()); 
-            //TODO check for status 200 before proceeding
 
             HttpEntity entity = response.getEntity();
 
