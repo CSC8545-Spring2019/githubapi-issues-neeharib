@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -21,20 +20,17 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-
 public class GitHubRestClient {
 
-    public String requestIssues(String username, String password) {
+    public String requestIssues(String username, String password, String state) {
 
         String jsonContent = null;
         HttpHost target = new HttpHost("api.github.com", 443, "https");
         CredentialsProvider credsProvider = new BasicCredentialsProvider();
-        credsProvider.setCredentials(
-                new AuthScope(target.getHostName(), target.getPort()),
+        credsProvider.setCredentials(new AuthScope(target.getHostName(), target.getPort()),
                 new UsernamePasswordCredentials(username, password));
 
-        CloseableHttpClient httpclient = HttpClients.custom()
-                .setDefaultCredentialsProvider(credsProvider).build();
+        CloseableHttpClient httpclient = HttpClients.custom().setDefaultCredentialsProvider(credsProvider).build();
 
         AuthCache authCache = new BasicAuthCache();
         BasicScheme basicAuth = new BasicScheme();
@@ -43,11 +39,10 @@ public class GitHubRestClient {
         HttpClientContext localContext = HttpClientContext.create();
         localContext.setAuthCache(authCache);
 
-        HttpGet httpget = new HttpGet("/repos/CSC8545-Spring2019/githubapi-issues-neeharib/issues?state=all");
+        HttpGet httpget = new HttpGet("/repos/CSC8545-Spring2019/githubapi-issues-neeharib/issues?state=" + state);
         try {
             CloseableHttpResponse response = httpclient.execute(target, httpget, localContext);
-            System.out.println(response.getStatusLine()); 
-
+            System.out.println(response.getStatusLine());
             HttpEntity entity = response.getEntity();
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(entity.getContent()));
@@ -56,22 +51,17 @@ public class GitHubRestClient {
 
             EntityUtils.consume(entity);
 
-        }
-        catch (ClientProtocolException e) {
+        } catch (ClientProtocolException e) {
             System.out.println("Unable to get data, or HTTP method not allowed");
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             System.out.println("Unable to create connection to server");
         } finally {
             try {
                 httpclient.close();
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 System.out.println("Failed to close HttpClient");
             }
         }
         return jsonContent;
     }
-
-
 }

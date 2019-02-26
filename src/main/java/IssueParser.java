@@ -7,8 +7,14 @@ import com.google.gson.reflect.TypeToken;
 
 public class IssueParser {
     public List<Issue> parseIssues(String s) {
-        Type listType = new TypeToken<ArrayList<Issue>>() {}.getType();
-        List<Issue> issues = new Gson().fromJson(s, listType);
+        List<Issue> issues = new ArrayList<Issue>();
+        Type listType = new TypeToken<ArrayList<Issue>>() {
+        }.getType();
+        try {
+            issues = new Gson().fromJson(s, listType);
+        } catch (Exception e) {
+            System.out.println("Invalid Response from GitHubRestClient");
+        }
         return issues;
     }
 }

@@ -1,5 +1,4 @@
 
-
 import java.util.Objects;
 
 public class User {
@@ -27,13 +26,10 @@ public class User {
         if (obj == this) {
             return true;
         }
-
         if (!(obj instanceof User)) {
             return false;
         }
-
         User u = (User) obj;
-
         return u.id == id;
     }
 

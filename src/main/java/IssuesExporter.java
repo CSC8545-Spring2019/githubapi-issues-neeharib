@@ -8,94 +8,92 @@ import java.util.*;
 
 public class IssuesExporter {
 
-    public static void main(String[] args) throws IOException {
-
-        // Taking username and password from console
+    public static void main(String[] args) {
+        // Taking user name and password from console
         IssuesExporter iExporter = new IssuesExporter();
         iExporter.startApplication();
-
     }
 
-    public void startApplication() throws IOException {
-        List<Issue> issues = new ArrayList<Issue>();
+    public void startApplication() {
+
         IssuesExporter iExporter = new IssuesExporter();
+        IssueParser parser = new IssueParser();
+        GitHubRestClient githubClient = new GitHubRestClient();
+
         Scanner s = new Scanner(System.in);
         System.out.println("Enter the GitHub Username: ");
         String gitUserName = s.nextLine();
         System.out.println("Enter the GitHub Password: ");
         String gitPassword = s.nextLine();
+        s.close();
 
-        GitHubRestClient githubClient = new GitHubRestClient();
-        String issuesString = githubClient.requestIssues(gitUserName,
-                gitPassword);
+        List<Issue> openIssues = new ArrayList<Issue>();
+        // issues = creatingIssues();
+        List<Issue> closedIssues = new ArrayList<Issue>();
+        String openIssueresult = githubClient.requestIssues(gitUserName, gitPassword, "open");
+        String closedIssueresult = githubClient.requestIssues(gitUserName, gitPassword, "closed");
+        openIssues = parser.parseIssues(openIssueresult);
+        closedIssues = parser.parseIssues(closedIssueresult);
+        openIssues.addAll(closedIssues);
+        Collections.sort(openIssues);
 
-        IssueParser parser = new IssueParser();
-        parser.parseIssues(issuesString);
+        try {
+            iExporter.writeIssuesFile(openIssues);
+        } catch (IOException e) {
+            // TODO: handle exception
+            System.out.println("Exception in Writing Issue to File");
+        }
 
-        issues = iExporter.creatingIssues();
+    }
 
-        // Invoking the method of issueExporter Class that returns the list of
-        // issues in
-        // array
-        // Printing the issues to output
-
-        System.out.println("Number of Issues : " + issues.size());
-
-        // Implementing issue export to file called issues.txt locally
+    public void writeIssuesFile(List<Issue> issues) throws IOException {
         Path currentPath = Paths.get(System.getProperty("user.dir"));
         Path filePath = Paths.get(currentPath.toString(), "issues.txt");
         File file = new File(filePath.toString());
         if (!file.exists()) {
             file.createNewFile();
         }
-
         FileWriter fw = new FileWriter(file.getAbsoluteFile(), false);
         BufferedWriter bw = new BufferedWriter(fw);
         try {
             for (Issue issue : issues) {
                 fw.write(issue.toString());
             }
-        }
-        catch (IOException e) {
-            // TODO: handle exception
-            System.out.println(e);
-        }
-        finally {
-            s.close();
+        } catch (IOException e) {
+            System.out.println("Exception in Writing Issue to File");
+        } finally {
+
             bw.close();
             fw.close();
         }
-
     }
 
     // this method creates user and Issue instances and add them to the
-    // arraylist of
-    // type Issue
-    // it returns the list
+    // arraylist of type Issue it returns the list
+
     public List<Issue> creatingIssues() {
         List<Issue> issues = new ArrayList<Issue>();
         // Creating three user instances
         User user1 = new User();
         user1.setLogin("Neeharika");
-        user1.setId(101);
+        user1.setId(110);
 
         User user2 = new User();
         user2.setLogin("DeviPriya");
-        user2.setId(102);
+        user2.setId(111);
 
         User user3 = new User();
         user3.setLogin("Vamsi");
-        user3.setId(103);
+        user3.setId(101);
 
         // Creating Instances for issues
         Issue issue1 = new Issue();
         issue1.setNumber(7474);
-        issue1.setId(1);
+        issue1.setId(112);
         issue1.setState(IssueState.open);
         issue1.setTitle("Authentication Failure");
         issue1.setBody("There has been failure to login");
-        Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11)
-                .getTime();
+        Date date = new GregorianCalendar(2014, Calendar.FEBRUARY, 11).getTime();
         issue1.setCreatedAt(date);
         Date date1 = new GregorianCalendar(2014, Calendar.MARCH, 21).getTime();
         issue1.setClosedAt(date1);
@@ -104,7 +102,7 @@ public class IssuesExporter {
 
         Issue issue2 = new Issue();
         issue2.setNumber(7798);
-        issue2.setId(1);
+        issue2.setId(113);
         issue2.setState(IssueState.closed);
         issue2.setTitle("Low Performance");
         issue2.setBody("The perforamnce levels are low");
@@ -117,14 +115,13 @@ public class IssuesExporter {
 
         Issue issue3 = new Issue();
         issue3.setNumber(7798);
-        issue3.setId(1);
+        issue3.setId(110);
         issue3.setState(IssueState.closed);
         issue3.setTitle("Page is not loading");
         issue3.setBody("There is some error while loading the page");
         Date date5 = new GregorianCalendar(2010, Calendar.JANUARY, 1).getTime();
         issue3.setCreatedAt(date5);
-        Date date6 = new GregorianCalendar(2010, Calendar.JANUARY, 21)
-                .getTime();
+        Date date6 = new GregorianCalendar(2010, Calendar.JANUARY, 21).getTime();
         issue3.setClosedAt(date6);
         issue3.setUser(user1);
         issue3.setAssignee(user3);

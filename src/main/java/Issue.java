@@ -1,7 +1,7 @@
 import java.util.Date;
 import java.util.Objects;
 
-public class Issue {
+public class Issue implements Comparable<Issue> {
     int number;
     int id;
     IssueState state;
@@ -13,7 +13,6 @@ public class Issue {
     User assignee;
 
     public Issue() {
-
     }
 
     // Generated Getters and setters from Source
@@ -94,13 +93,10 @@ public class Issue {
         if (obj == this) {
             return true;
         }
-
         if (!(obj instanceof Issue)) {
             return false;
         }
-
         Issue i = (Issue) obj;
-
         return i.id == id;
     }
 
@@ -111,7 +107,18 @@ public class Issue {
 
     @Override
     public String toString() {
-        return "Issue: " + title + " / User: " + user.toString() + " / Assignee: " + assignee.toString() + "\n";
+        return "------- Issue Details----------------" + System.lineSeparator() + "number: " + number
+                + System.lineSeparator() + "id : " + id + System.lineSeparator() + "state : " + state.toString()
+                + System.lineSeparator() + "title : " + title + System.lineSeparator() + "body : " + body
+                + System.lineSeparator() + "createdAt : " + createdAt + System.lineSeparator() + "closedAt : "
+                + closedAt + System.lineSeparator() + "User : " + user.toString() + System.lineSeparator()
+                + "Assignee : " + assignee.toString() + System.lineSeparator() + "------------------------------"
+                + System.lineSeparator() + System.lineSeparator();
     }
 
+    @Override
+    public int compareTo(Issue compareIssue) {
+        int compareId = ((Issue) compareIssue).getId();
+        return Integer.compare(this.id, compareId);
+    }
 }
