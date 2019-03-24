@@ -32,6 +32,7 @@ public class IssuesExporterIT {
         assertTrue(fileLines.isEmpty());
     }
 
+
     @Test
     public void testExportIssuesToFileWithTwoIssuesYieldsTwoLineFile()
             throws IOException, ParseException {
