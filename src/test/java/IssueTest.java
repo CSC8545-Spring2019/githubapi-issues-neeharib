@@ -66,8 +66,8 @@ public class IssueTest {
     public void testToString() {
         String expected = "------- Issue Details----------------\r\n" + "number: 7474\r\n" + "id : 112\r\n"
                 + "state : open\r\n" + "title : Authentication Failure\r\n"
-                + "body : There has been failure to login\r\n" + "createdAt : Tue Feb 11 00:00:00 CST 2014\r\n"
-                + "closedAt : Fri Mar 21 00:00:00 CDT 2014\r\n" + "User : Neeharika\r\n" + "Assignee : Neeha\r\n"
+                + "body : There has been failure to login\r\n" + "createdAt : Tue Feb 11 00:00:00 EST 2014\r\n"
+                + "closedAt : Fri Mar 21 00:00:00 EDT 2014\r\n" + "User : Neeharika\r\n" + "Assignee : Neeha\r\n"
                 + "------------------------------\r\n\r\n";
         assertEquals(expected, issue1.toString());
     }
