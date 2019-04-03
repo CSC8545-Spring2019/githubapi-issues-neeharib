@@ -1,16 +1,20 @@
-import static org.junit.Assert.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+
 
 public class IssueParserTest {
 
     private static String jsonString;
 
     // Reading the sample-outputput.txt file
-    @BeforeClass
+    @BeforeAll
     public static void runBeforeAllTests() throws Exception {
         jsonString = new String(
                 Files.readAllBytes(Paths.get("src", "test", "java", "sample-output.txt").toAbsolutePath()));

@@ -1,9 +1,21 @@
-import static org.junit.Assert.*;
+
 import java.util.GregorianCalendar;
+//
+//import static org.junit.Assert.assertEquals;
+//import static org.junit.Assert.assertFalse;
+//import static org.junit.Assert.assertTrue;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import java.util.Calendar;
 import java.util.Date;
-import org.junit.BeforeClass;
-import org.junit.Test;
+
+import org.junit.jupiter.api.BeforeAll;
+//import org.junit.BeforeClass;
+//import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class IssueTest {
 
@@ -13,7 +25,7 @@ public class IssueTest {
     private static User user1 = new User();
     private static User user2 = new User();
 
-    @BeforeClass
+    @BeforeAll
     public static void runBeforeAllTests() {
 
         user1.setLogin("Neeharika");

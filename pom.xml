@@ -19,6 +19,7 @@
 	<build>
 		<plugins>
 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>  
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.8.0</version>
 				<configuration>
@@ -41,9 +42,26 @@
 
 <groupId>org.apache.maven.plugins</groupId>     
 
-<artifactId>maven-failsafe-plugin</artifactId>   
+<artifactId>maven-failsafe-plugin</artifactId>  
+
 
 <version>2.22.1</version>
+
+<executions> 
+
+<execution> 
+
+<goals> 
+
+<goal>integration-test</goal> 
+
+<goal>verify</goal> 
+
+</goals> 
+
+</execution> 
+
+</executions>
 
 </plugin>
 			<plugin>
@@ -83,8 +101,9 @@
 					</execution>
 				</executions>
 			</plugin>
-
-		</plugins>
+	
+			
+</plugins>
 	</build>
 	<dependencies>
 		<dependency>
@@ -97,11 +116,13 @@
 			<groupId>commons-codec</groupId>
 			<artifactId>commons-codec</artifactId>
 			<version>1.11</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.2</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
@@ -121,12 +142,7 @@
 			<version>5.4.1</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.12</version>
-			<scope>test</scope>
-		</dependency>
+		
 	</dependencies>
 
 

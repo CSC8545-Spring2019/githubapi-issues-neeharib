@@ -1,22 +1,23 @@
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.rules.TemporaryFolder;
-import org.junit.BeforeClass;
-import org.junit.Rule;
+
+//import org.junit.rules.ExpectedException;
+//import org.junit.rules.TemporaryFolder;
+//import org.junit.Rule;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 
 public class IssuesExporterTest {
 
     private static List<Issue> issues = new ArrayList<Issue>();
-    @Rule
-    public TemporaryFolder tempFolder = new TemporaryFolder();
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    //@Rule
+    //public TemporaryFolder tempFolder = new TemporaryFolder();
+    //@Rule
+    //public ExpectedException thrown = ExpectedException.none();
 
-    @BeforeClass
+    @BeforeAll
     public static void runBeforeAllTests() throws Exception {
         IssuesExporter iExporter = new IssuesExporter();
         issues = iExporter.creatingIssues();
